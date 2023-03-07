@@ -64,14 +64,13 @@ app.get("/players/:playerId", async (request, response) => {
 
 // ADD PLAYER API;
 app.post("/players/", async (request, response) => {
-  const { player_name, jersey_number, role } = request.body;
-  const { playerId } = request.params;
-  const updatePlayerQuery = `
-    INSERT INTO 
-    cricket_team( player_id , player_name,jersey_number, role)
-    VALUES (${playerId} ,'${playerName}',${jerseyNumber},'${role}');`;
-
-  await db.run(updatePlayerQuery);
+  const { playerName, jerseyNumber, role } = request.body;
+  const postPlayerQuery = `
+  INSERT INTO
+    cricket_team (player_name, jersey_number, role)
+  VALUES
+    ('${playerName}', ${jerseyNumber}, '${role}');`;
+  const player = await db.run(postPlayerQuery);
   response.send("Player Added to Team");
 });
 
